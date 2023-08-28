@@ -1,3 +1,11 @@
 {
-  "app_name": "BaseFlutterBlocPattern"
+  "app_name": "BaseFlutterBlocPattern",
+  "login": {
+    "Sign in": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "New user?": "New user?",
+    "Create an account": "Create an account",
+    "Forgot password?": "Forgot password?"
+  }
 }

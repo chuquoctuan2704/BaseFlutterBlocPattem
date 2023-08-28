@@ -1,9 +1,10 @@
+import 'package:base_flutter_bloc_pattem/feature/auth/login/presentation/pages/login.dart';
+import 'package:base_flutter_bloc_pattem/feature/auth/splash/presentation/splash.dart';
 import 'package:flutter/material.dart';
 
 class Routing {
   static const String splash = "/";
   static const String login = "/login";
-  static const String home = "/home";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     return fadeThrough(settings, (context) {
@@ -12,8 +13,6 @@ class Routing {
           return const SplashView();
         case Routing.login:
           return const LoginView();
-        case Routing.home:
-          return const Home();
         default:
           return const SplashView();
       }

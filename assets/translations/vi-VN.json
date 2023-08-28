@@ -1,0 +1,11 @@
+{
+  "app_name": "BaseFlutterBlocPattern",
+  "login": {
+    "Sign in": "Đăng nhập",
+    "email": "Email",
+    "password": "Password",
+    "New user?": "Người dùng mới?",
+    "Create an account": "Tạo một tài khoản",
+    "Forgot password?": "Quên mật khẩu?"
+  }
+}

@@ -1,3 +1,5 @@
+import 'package:base_flutter_bloc_pattem/app/core/helper/localizations/localization_service.dart';
+import 'package:base_flutter_bloc_pattem/feature/auth/login/presentation/bloc/login_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +21,6 @@ class MyApp extends StatefulWidget {
 
   static void setLocale(BuildContext context, Locale newLocale) async {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
-    state?.setLocale(newLocale);
   }
 
   @override
@@ -31,20 +32,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Key key = UniqueKey();
-  Locale _locale = const Locale('en', 'US');
-  List<Locale> locales = [const Locale('en', 'US'), const Locale('ja', 'JP')];
 
   void restartApp() {
     setState(() {
       key = UniqueKey();
     });
-  }
-
-  void setLocale(Locale value) {
-    setState(() {
-      _locale = value;
-    });
-    context.setLocale(value);
   }
 
   @override
@@ -56,42 +48,39 @@ class _MyAppState extends State<MyApp> {
     var baseTheme = ThemeData.light();
 
     return baseTheme.copyWith(
-      // textTheme: GoogleFonts.mulishTextTheme(baseTheme.textTheme),
-    );
+        // textTheme: GoogleFonts.mulishTextTheme(baseTheme.textTheme),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
-    setLocale(_locale);
     return KeyedSubtree(
       key: key,
       child: MultiBlocProvider(
-          providers:[
-          ],
-          child: Sizer(builder: (context, orientation, deviceType) {
+        providers: [
+          BlocProvider(create: (context) => di.getIt<LoginBloc>()),
+
+          /// Add new event when open screen
+          // BlocProvider(
+          //     create: (context) => di.getIt<LessonListBloc>()
+          //       ..add(const LoadLessonFeatured())
+          //       ..add(const LoadLessonNewest())
+          //       ..add(const LoadLessonTrending())),
+        ],
+        child: Sizer(
+          builder: (context, orientation, deviceType) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: "",
               theme: _buildTheme(),
-              //   primaryColor: Colors.green.shade800,
-              //   accentColor: Colors.green.shade600,
-              // ),
               localizationsDelegates: context.localizationDelegates,
-              localeResolutionCallback: (locale, supportedLocales) {
-                for (var supportedLocale in supportedLocales) {
-                  if (supportedLocale.languageCode == locale?.languageCode &&
-                      supportedLocale.countryCode == locale?.countryCode) {
-                    return supportedLocale;
-                  }
-                }
-                return supportedLocales.first;
-              },
-              supportedLocales: locales,
-              locale: _locale,
+              supportedLocales: LocalizationService.supportedLocales,
+              locale: LocalizationService.locale,
               onGenerateRoute: Routing.generateRoute,
               initialRoute: Routing.splash,
             );
-          })),
+          },
+        ),
+      ),
     );
   }
 }

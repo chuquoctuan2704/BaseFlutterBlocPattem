@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Constant {
+  // path
+  static String pathTranslations = 'assets/translations';
+
   //Regex
   static RegExp regEmail = RegExp(
       r'^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$');
